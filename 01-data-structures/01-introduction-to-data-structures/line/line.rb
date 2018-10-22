@@ -5,25 +5,32 @@ class Line
   attr_accessor :members
 
   def initialize
-    self.members = []
+    @members = []
   end
 
   def join(person)
+    @members << person
   end
 
   def leave(person)
+    @members.delete(person)
   end
 
   def front
+    @members.first
   end
 
   def middle
+    @members[@members.length/2]
   end
 
   def back
+    @members.last
   end
 
   def search(person)
+    if @members.include?(person)
+         person
   end
 
   private
