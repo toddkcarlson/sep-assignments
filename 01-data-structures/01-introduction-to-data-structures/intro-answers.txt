@@ -1,0 +1,11 @@
+How does your data structure allow developers to access and manipulate the data?
+
+For Line, there are the "join" and "leave" methods. For Pixel and Screen, developers can set the pixel color, coordinate, and screen size respectively.
+
+If a developer wanted to find a specific element in your data structure, how would you search for it?
+
+Line allows for a search by "person" ie name. Screen's "at" allows for a developer to search for a color at a particular coordinate.
+
+What other real-world data can each structure represent?
+
+Any line of people, doesn't have to be amusement park ride. Pixel could be used to define anything needing color and a starting coordinate. 

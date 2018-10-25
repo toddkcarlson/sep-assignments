@@ -31,6 +31,7 @@ class Line
   def search(person)
     if @members.include?(person)
          person
+    end
   end
 
   private
