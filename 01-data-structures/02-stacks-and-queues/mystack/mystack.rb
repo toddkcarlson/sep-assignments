@@ -16,7 +16,7 @@ class MyStack
   end
 
   def pop
-    @stack.delete_at(0)
+    @stack.shift
     #self.top = @stack[0]
   end
 
