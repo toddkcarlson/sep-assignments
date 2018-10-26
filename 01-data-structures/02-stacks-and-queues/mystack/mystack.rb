@@ -16,8 +16,8 @@ class MyStack
   end
 
   def pop
+    self.top = @stack[1]
     @stack.shift
-    #self.top = @stack[0]
   end
 
   def empty?
