@@ -1,0 +1,13 @@
+1) What is Spatial Locality and why does it benefit performance?
+
+Spatial Locality is when data is saved in memory in a relatively close location. This makes lookups quicker.
+
+2) Compare the performance of an Array to a Linked List using the Benchmark module.
+
+       user     system      total        real
+array_make:  0.000392   0.000083   0.000475 (  0.000468)
+llist_make:  0.000020   0.000004   0.000024 (  0.000024)
+array_element:  0.000010   0.000002   0.000012 (  0.000011)
+llist_element:  0.000013   0.000003   0.000016 (  0.000016)
+array_delete:  0.000018   0.000004   0.000022 (  0.000033)
+llist_delete:  0.000012   0.000002   0.000014 (  0.000015)

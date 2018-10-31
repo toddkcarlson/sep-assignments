@@ -16,40 +16,61 @@ class LinkedList
       while current.next != nil
         current = current.next
       end
-      current.next = Node.new(node)
+      current.next = node
     else
-      @head = Node.new(node)
+      @head = node
     end
+  end
+
+  def tail
+    current = @head
+
+    if @head
+      while current.next != nil
+        current = current.next
+      end
+      return current
+    else
+      return @head
+    end  
   end
 
   # This method removes the last node in the lists and must keep the rest of the list intact.
   def remove_tail
     current = @head
-    until current.next = nil
-      current.next = current
+    previous = nil
+
+    if @head.next
+      while current.next != nil
+        previous = current
+        current = current.next
+      end
+      previous.next = nil
+    else
+      @head = nil
     end
-    @head = nil
+    
   end
 
   # This method prints out a representation of the list.
   def print
     node = @head
-    puts node
+    puts node.data
     
     while (node = node.next)
-      puts node
+      puts node.data
     end  
   end
 
   # This method removes `node` from the list and must keep the rest of the list intact.
-  def delete(node)
-    if @head == node
-      @head = @head.next
-      return
-    end
+   def delete(node)
+     if @head == node
+       @head = @head.next
+       return
+     end
 
     current = @head
-    while current.next != null
+    while current.next != nil
       if current.next == node
         current.next = current.next.next
         return
@@ -62,7 +83,7 @@ class LinkedList
   # This method adds `node` to the front of the list and must set the list's head to `node`.
   def add_to_front(node)
     hold = @head
-    @head = Node.new(node)
+    @head = node
     @head.next = hold    
   end
 
