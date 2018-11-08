@@ -1,27 +1,44 @@
+# .hash different value everytime
+# how should the data look? How do you see the orginal key value?
+# how to re-hash
+
 class HashClass
 
   def initialize(size)
-    @items = Array.new(size)
+    @size = size
+    @items = Array.new(@size)
   end
 
   def []=(key, value)
+    h_key = index(key, @size)    
+    
+    while @items[h_key] && @items[h_key] != value
+      puts "collison!"
+      resize()      
+      h_key = index(key, @size)
+    end
+    
+    @items[h_key] = value
+    puts "new item"    
   end
 
-
   def [](key)
+    h_key = index(key, @size) 
+    @items[h_key].value
   end
 
   def resize
+    p_size = @size    
+    @size = @size * 2
+    @items.fill(nil, p_size..@size-1) 
   end
 
-  # Returns a unique, deterministically reproducible index into an array
-  # We are hashing based on strings, let's use the ascii value of each string as
-  # a starting point.
   def index(key, size)
+    key.hash % size
   end
 
-  # Simple method to return the number of items in the hash
   def size
+    @size
   end
 
 end
