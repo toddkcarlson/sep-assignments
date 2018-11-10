@@ -1,7 +1,3 @@
-# .hash different value everytime
-# how should the data look? How do you see the orginal key value?
-# how to re-hash
-
 class HashClass
 
   def initialize(size)
@@ -12,14 +8,14 @@ class HashClass
   def []=(key, value)
     h_key = index(key, @size)    
     
-    while @items[h_key] && @items[h_key] != value
-      puts "collison!"
+    while @items[h_key] && @items[h_key].value != value
+      #puts "collison!"
       resize()      
       h_key = index(key, @size)
     end
     
-    @items[h_key] = value
-    puts "new item"    
+    @items[h_key] = HashItem.new(key, value)
+    #puts "new item"    
   end
 
   def [](key)
@@ -34,7 +30,7 @@ class HashClass
   end
 
   def index(key, size)
-    key.hash % size
+    key.sum % size
   end
 
   def size
