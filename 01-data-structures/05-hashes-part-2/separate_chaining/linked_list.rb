@@ -4,6 +4,10 @@ class LinkedList
   attr_accessor :head
   attr_accessor :tail
 
+  def initialize
+    @head = nil
+  end
+
   # This method creates a new `Node` using `data`, and inserts it at the end of the list.
   def add_to_tail(node)
     current = @head
@@ -16,6 +20,19 @@ class LinkedList
     else
       @head = node
     end    
+  end
+
+  def tail
+    current = @head
+
+    if @head
+      while current.next != nil
+        current = current.next
+      end
+      return current
+    else
+      return @head
+    end  
   end
 
   # This method removes the last node in the lists and must keep the rest of the list intact.
