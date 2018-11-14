@@ -1,0 +1,5 @@
+Written Assignment, write your answers in hashes-1-answers.txt
+
+Explain why doubling the size of the underlying array of your HashClass may be a poor idea.
+
+Doubling and rehashing the array for every collision is expensive (memory wise), and often unnecessary (there are other collision techniques that can be tried first). Furthermore, increasing to the nearest prime number after doubling would produce fewer future collisions than simply only doubling.

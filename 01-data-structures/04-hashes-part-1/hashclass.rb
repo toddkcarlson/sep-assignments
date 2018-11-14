@@ -30,8 +30,8 @@ class HashClass
 
   def resize 
     puts "resizing" 
-    puts "@size: #{@size}"
     @size = @size * 2
+    puts "@size: #{@size}"    
     current = @items
     new_array = Array.new(@size)
     current.each { |hash_item|
