@@ -34,19 +34,24 @@ class SeparateChaining
   end
 
   def []=(key, value)
-    h_key = index(key, @size)    
-    if @items[h_key].nil?
+    h_key = index(key, @size)
+    current_load_factor = load_factor()
+
+    if current_load_factor >= @max_load_factor
+      #puts "resizing!"
+      resize()      
+      h_key = index(key, @size)
+      self.[]=(key, value)      
+    elsif @items[h_key].nil?
       #puts "new item"     
       @items[h_key] = Node.new(key, value)
       @values += 1
     elsif @items[h_key].key == key
-      #puts "replacing item"
-      @items[h_key].value = value 
+       #puts "replacing item"
+       @items[h_key].value = value
     else
-      #puts "collision!"
-      resize()      
-      h_key = index(key, @size)
-      self.[]=(key, value)
+      @items[h_key] = Node.add_to_tail(value)
+      @values += 1
     end  
   end
 
@@ -64,7 +69,7 @@ class SeparateChaining
 
   # Calculate the current load factor
   def load_factor
-    # puts "load_factor: #{@values} / #{@size}"
+    puts "load_factor: #{@values} / #{@size}"
     @values / @size    
   end
 

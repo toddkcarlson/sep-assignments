@@ -18,35 +18,65 @@ class OpenAddressing
     @counter = 0
   end
 
+  # def []=(key, value)
+  #   h_key = index(key, @size)
+  #   h_key = h_key + @counter
+
+  #   if @items[h_key].nil?
+  #     puts "new item" 
+  #     @items[h_key] = Node.new(key, value)
+  #     @counter = 0
+  #   elsif @items[h_key].key == key
+  #     puts "replacing item"
+  #     @items[h_key].value = value
+  #     @counter = 0 
+  #   elsif h_key > @items.length
+  #     puts "collision! - resizing"
+  #     puts h_key
+  #     puts @items.length
+  #     resize()      
+  #     h_key = index(key, @size)
+  #     @counter += 1
+  #     self.[]=(key, value)
+  #   else
+  #     puts "collision! - iterate"
+  #     #h_key = next_open_index(index)
+  #     @counter += 1
+  #     self.[]=(key, value)
+  #   end
+  # end
+
   def []=(key, value)
-    h_key = index(key, @size)
-    h_key = h_key + @counter
-    # index = h_key   
-    if @items[h_key].nil?
-      puts "new item" 
-      @items[h_key] = Node.new(key, value)
-      @counter = 0
-    # elsif @items[h_key].key == key
-    #   puts "replacing item"
-    #   @items[h_key].value = value 
-    elsif h_key >= @items.length
-      puts "collision! - resizing"
-      puts h_key
-      puts @items.length
-      resize()      
-      h_key = index(key, @size)
-      self.[]=(key, value)
-    else
-      puts "collision! - iterate"
-      #h_key = next_open_index(index)
-      @counter += 1
+     h_key = index(key, @size)
+
+     if @items[h_key].nil?
+       @items[h_key] = Node.new(key, value)
+     elsif @items[h_key].key = key
+       @items[h_key].value = value
+     else
+      while h_key < @items.size
+        if @items[h_key].nil?
+          @items[h_key] = Node.new(key, value)
+          return
+        else
+          h_key = h_key + 1
+        end
+      end
+
+      resize()
       self.[]=(key, value)
     end
   end
 
   def [](key)
-    h_key = index(key, @size) 
-    @items[h_key].value    
+    h_key = index(key, @size)
+    while not @items[h_key].nil? && h_key >= @items.size
+      if @items[h_key].key == key
+         return @items[h_key].value
+      else
+         h_key += 1
+      end
+    end
   end
 
   # Returns a unique, deterministically reproducible index into an array
