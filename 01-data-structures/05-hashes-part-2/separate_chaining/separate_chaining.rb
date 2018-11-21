@@ -29,7 +29,7 @@ class SeparateChaining
   def initialize(size)
     @size = size
     @max_load_factor = 0.7
-    @values = 0.0
+    @values = 0
     @items = Array.new(@size)
   end
 
@@ -37,39 +37,38 @@ class SeparateChaining
     node = Node.new(key, value)
     h_key = index(key, @size)
     current_load_factor = load_factor()
-
-    if current_load_factor >= @max_load_factor
-      #puts "resizing!"
-      resize()      
-      h_key = index(key, @size)
-      self.[]=(key, value)      
-    elsif @items[h_key].nil?
+   
+    if @items[h_key].nil?
       #puts "new item"
-      llist = LinkedList.new
-      @items[h_key] = llist.add_to_tail(node)
+      @items[h_key] = LinkedList.new
+      @items[h_key].add_to_tail(node)
       @values += 1
     # elsif @items[h_key].key == key
     #    #puts "replacing item"
     #    @items[h_key].value = value
     else
-      @items[h_key] = llist.add_to_tail(node)
+      @items[h_key].add_to_tail(node)
       @values += 1
     end  
+    
+    if current_load_factor >= @max_load_factor
+      #puts "resizing!"
+      resize()      
+    end 
   end
 
   def [](key)
     h_key = index(key, @size)
 
-     if @items[h_key].key == key
-       @items[h_key].value
-       return
-     end
-
     current = @items[h_key]
-    while current.next != nil
-      if current.next.key == key
-        @items[h_key].value
-        return
+
+    if current != nil
+      current = current.head
+    end
+
+    while current != nil
+      if current.key == key
+        return @items[h_key].value
       else
         current = current.next
       end
@@ -86,7 +85,7 @@ class SeparateChaining
   # Calculate the current load factor
   def load_factor
     puts "load_factor: #{@values} / #{@size}"
-    @values / @size    
+    (@values + 0.0) / @size
   end
 
   # Simple method to return the number of items in the hash
@@ -101,10 +100,13 @@ class SeparateChaining
     #puts "@size: #{@size}"    
     current = @items
     new_array = Array.new(@size)
-    current.each { |hash_item|
-      unless hash_item.nil?
-       h_key = index(hash_item.key, @size)
-       new_array[h_key] = hash_item
+    current.each { |ll|
+     unless ll.nil?
+     current = ll.head
+       while current != nil
+         self.[]=(current.key, current.value)
+         current = current.next
+        end
       end
     }
     @items = new_array
