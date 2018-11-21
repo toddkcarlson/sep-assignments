@@ -51,8 +51,8 @@ class OpenAddressing
 
      if @items[h_key].nil?
        @items[h_key] = Node.new(key, value)
-     elsif @items[h_key].key = key
-       @items[h_key].value = value
+     # elsif @items[h_key].key == key
+     #   @items[h_key].value = value
      else
       while h_key < @items.size
         if @items[h_key].nil?
@@ -88,7 +88,15 @@ class OpenAddressing
 
   # Given an index, find the next open index in @items
   def next_open_index(index)
-    index - @items.length
+   while index < @items.size
+    if @items[index].nil?
+      return index
+     else
+      index += 1
+     end
+    end
+
+    return -1
   end
 
   # Simple method to return the number of items in the hash
@@ -105,8 +113,9 @@ class OpenAddressing
     @items = Array.new(@size)
     current.each { |hash_item|
       unless hash_item.nil?
-       h_key = index(hash_item.key, @size)
-       @items[h_key] = hash_item
+       self.[]=(hash_item.key, hash_item.value)
+       # h_key = index(hash_item.key, @size)
+       # @items[h_key] = hash_item
       end
     } 
   end

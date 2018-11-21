@@ -55,10 +55,10 @@ class LinkedList
   # This method prints out a representation of the list.
   def print
     node = @head
-    puts node.data
+    puts node.value
     
     while (node = node.next)
-      puts node.data
+      puts node.value
     end      
   end
 

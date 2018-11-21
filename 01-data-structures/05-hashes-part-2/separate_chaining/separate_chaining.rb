@@ -34,6 +34,7 @@ class SeparateChaining
   end
 
   def []=(key, value)
+    node = Node.new(key, value)
     h_key = index(key, @size)
     current_load_factor = load_factor()
 
@@ -43,21 +44,36 @@ class SeparateChaining
       h_key = index(key, @size)
       self.[]=(key, value)      
     elsif @items[h_key].nil?
-      #puts "new item"     
-      @items[h_key] = Node.new(key, value)
+      #puts "new item"
+      llist = LinkedList.new
+      @items[h_key] = llist.add_to_tail(node)
       @values += 1
-    elsif @items[h_key].key == key
-       #puts "replacing item"
-       @items[h_key].value = value
+    # elsif @items[h_key].key == key
+    #    #puts "replacing item"
+    #    @items[h_key].value = value
     else
-      @items[h_key] = Node.add_to_tail(value)
+      @items[h_key] = llist.add_to_tail(node)
       @values += 1
     end  
   end
 
   def [](key)
-    h_key = index(key, @size) 
-    @items[h_key].value  
+    h_key = index(key, @size)
+
+     if @items[h_key].key == key
+       @items[h_key].value
+       return
+     end
+
+    current = @items[h_key]
+    while current.next != nil
+      if current.next.key == key
+        @items[h_key].value
+        return
+      else
+        current = current.next
+      end
+    end 
   end
 
   # Returns a unique, deterministically reproducible index into an array
