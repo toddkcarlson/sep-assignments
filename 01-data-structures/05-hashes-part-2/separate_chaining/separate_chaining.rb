@@ -97,6 +97,7 @@ class SeparateChaining
   def resize
     #puts "resizing" 
     @size = @size * 2
+    @values = 0
     #puts "@size: #{@size}"    
     current = @items
     new_array = Array.new(@size)
