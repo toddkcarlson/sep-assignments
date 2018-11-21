@@ -20,7 +20,6 @@
 #     RETURN nothing
 # END DEF
 
-require_relative 'node'
 require_relative 'linked_list'
 
 class SeparateChaining
@@ -33,26 +32,30 @@ class SeparateChaining
     @items = Array.new(@size)
   end
 
-  def []=(key, value)
+  def []=(key, value, increase = true)
     node = Node.new(key, value)
     h_key = index(key, @size)
-    current_load_factor = load_factor()
    
     if @items[h_key].nil?
-      #puts "new item"
+      puts "new item"
       @items[h_key] = LinkedList.new
       @items[h_key].add_to_tail(node)
-      @values += 1
+      
+      if increase 
+       @values += 1
+      end  
     # elsif @items[h_key].key == key
     #    #puts "replacing item"
     #    @items[h_key].value = value
     else
       @items[h_key].add_to_tail(node)
-      @values += 1
+      if increase 
+       @values += 1
+      end  
     end  
-    
-    if current_load_factor >= @max_load_factor
-      #puts "resizing!"
+
+    if increase && (load_factor() >= @max_load_factor)
+      puts "resizing!"
       resize()      
     end 
   end
@@ -67,11 +70,11 @@ class SeparateChaining
     end
 
     while current != nil
+              puts "while 2"
       if current.key == key
-        return @items[h_key].value
-      else
-        current = current.next
+        return current.value
       end
+        current = current.next
     end 
   end
 
@@ -97,19 +100,19 @@ class SeparateChaining
   def resize
     #puts "resizing" 
     @size = @size * 2
-    @values = 0
     #puts "@size: #{@size}"    
     current = @items
-    new_array = Array.new(@size)
+    @items = Array.new(@size)
     current.each { |ll|
      unless ll.nil?
-     current = ll.head
-       while current != nil
-         self.[]=(current.key, current.value)
-         current = current.next
+     curr = ll.head
+       while curr != nil
+        puts curr
+         self.[]=(curr.key, curr.value, false)
+         curr = curr.next
         end
       end
     }
-    @items = new_array
+    # @items = new_array
   end
 end
