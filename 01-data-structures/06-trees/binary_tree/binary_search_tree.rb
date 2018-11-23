@@ -1,3 +1,11 @@
+# DEF FIND_THE_OLDEST(root)
+#   SET temp to root
+#   WHILE temp.right exists
+#     ASSIGN temp.right to temp
+#   END WHILE
+#   RETURN temp
+# END DEF
+
 require_relative 'node'
 
 class BinarySearchTree
