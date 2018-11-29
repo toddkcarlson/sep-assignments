@@ -52,6 +52,12 @@ RSpec.describe BinarySearchTree, type: Class do
       tree.insert(root, mad_max_2)
       expect(root.right.right.title).to eq "Mad Max 2: The Road Warrior"
     end
+    it "properly inserts a new node as a right-right-right child" do
+      tree.insert(root, martian)
+      tree.insert(root, empire)
+      tree.insert(root, mad_max_2)
+      expect(root.right.right.right.title).to eq "Mad Max 2: The Road Warrior"
+    end    
   end
 
   describe "#find(data)" do
