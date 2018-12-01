@@ -1,6 +1,11 @@
+# 1. Insert a new node at the end of Heap.
+# 2. Compare the value of the new child node with its parent.
+# 3. If the value of parent node is less than child, then swap the parent node with the child node.
+# 4. Repeat step 2 and 3 until the Heap property holds.
+
 require_relative 'node'
 
-class BinarySearchTree
+class MinHeapTree
   attr_accessor :root
 
   def initialize(root)
@@ -12,18 +17,32 @@ class BinarySearchTree
     if node.rating > root.rating
      if root.right == nil
       root.right = node
-    else
+     else
       insert(root.right, node)      
-    end
+     end
     elsif #node.rating < root.rating
      if root.left == nil
        root.left = node
      else  
       insert(root.left, node)       
-    end    
-  end 
+     end    
+    end 
 
-end
+
+    # if node.rating > root.rating
+    #  if root.right == nil
+    #   root.right = node
+    #  else
+    #   insert(root.right, node)      
+    #  end
+    # elsif #node.rating < root.rating
+    #  if root.left == nil
+    #    root.left = node
+    #  else  
+    #   insert(root.left, node)       
+    #  end    
+    # end 
+   end
 
   # Recursive Depth First Search
   def find(root, data)
