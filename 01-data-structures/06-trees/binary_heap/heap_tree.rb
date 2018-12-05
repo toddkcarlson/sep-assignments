@@ -7,46 +7,40 @@ require_relative 'node'
 
 class MinHeapTree
   attr_accessor :root
+  attr_accessor :heap
 
   def initialize(root)
-    @root = root
+    @heap = [root] 
   end
 
   def insert(root, node)
-
-    if node.rating > root.rating
-     if root.right == nil
-      root.right = node
-     else
-      insert(root.right, node)      
-     end
-    elsif #node.rating < root.rating
-     if root.left == nil
-       root.left = node
+    @heap << node
+    current = @heap.length - 1
+    parent = (@heap.length - 1)/2
+     
+     if @heap[parent].left == nil
+      @heap[parent].left = node
+      if @heap[current].rating < @heap[parent].rating
+         @heap[parent].left = nil
+         @heap[current] = @heap[parent]
+         @heap[parent] = node
+         @heap[parent].left = @heap[current]
+      end       
+     elsif @heap[parent].right == nil
+       @heap[parent].right = node
+       if @heap[current].rating < @heap[parent].rating
+         @heap[parent].right = nil
+         @heap[current] = @heap[parent]
+         @heap[parent] = node
+         @heap[parent].right = @heap[current]
+       end        
      else  
-      insert(root.left, node)       
-     end    
-    end 
-
-
-    # if node.rating > root.rating
-    #  if root.right == nil
-    #   root.right = node
-    #  else
-    #   insert(root.right, node)      
-    #  end
-    # elsif #node.rating < root.rating
-    #  if root.left == nil
-    #    root.left = node
-    #  else  
-    #   insert(root.left, node)       
-    #  end    
-    # end 
-   end
+       puts "insert error"      
+    end
+  end
 
   # Recursive Depth First Search
-  def find(root, data)
-    return nil if data.nil?    
+  def find(root, data) 
 
     if data == root.title
       return root
