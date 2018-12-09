@@ -1,0 +1,15 @@
+How much time does an average insertion consume in the Binary Search Tree compared to the Heap?
+The BST insertion takes 0.267 seconds and a Heap search takes 0.078.
+
+How much time does finding 50000 in the Binary Search Tree consume compared to the Heap?
+The BST find takes 0.016 seceonds and Heap takes 0.000007.
+
+How much time does the average deletion consume in a Binary Search Tree compared to the Heap?
+The BST deletion takes 0.000008 seconds and the Heap takes 0.000004.
+
+When would you use a Binary Search Tree and why?
+When Search for arbitrary elements is important because the worse case time of O(log(n)) is better than Heap.
+
+
+When would you use an Heap and why?
+You would use an Heap when looking for the minimum value because the worse case time is O(n), which is better than BST. 
