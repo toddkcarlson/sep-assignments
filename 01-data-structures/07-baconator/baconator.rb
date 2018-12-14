@@ -43,6 +43,7 @@ class Graph
       if current_node.name == "Kevin Bacon"
         return current[:path]
       # node not found, add adjacent nodes to be visited if not already
+      end
       if current[:path].length <= 6
         current_node.connections.each do |node|
           if !visited.include?(current_node)
@@ -50,7 +51,7 @@ class Graph
             to_visit <<  { :node => current_node, :path => current[:path] << current_node.name}
           end
         end
-      end
+      
     end
   end
  end
