@@ -52,15 +52,10 @@ class Graph
       # node not found, add adjacent nodes to be visited if not already
       end
       if current[:path].length < 6
-        puts current[:path].length
-        puts current[:path]
-        puts "-----------"
         current_node.connections.each do |node|
           if !visited.include?(node)
             visited << node
             to_visit << { :node => node, :path => current[:path] << node.name}
-            # puts current[:path]
-            # puts "-----------"
           end
         end
       
