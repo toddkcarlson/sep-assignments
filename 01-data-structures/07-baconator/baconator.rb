@@ -1,18 +1,18 @@
 class Node
   attr_reader :name
-  attr_accessor :connection  
+  attr_accessor :connections  
   
   def initialize(name)
     @name = name
-    @connection = []
+    @connections = []
   end
   
   def connect(adjacent_node)
-    @connection << adjacent_node
+    @connections << adjacent_node
   end
 
   def print(node)
-    puts node.connection
+    puts node.connections
   end 
 end
 
@@ -51,9 +51,12 @@ class Graph
         return current[:path]
       # node not found, add adjacent nodes to be visited if not already
       end
-      if current[:path].length <= 6
-        current_node.connection.each do |node|
-          if visited.include?(current_node)
+      if current[:path].length < 6
+        puts current[:path].length
+        puts current[:path]
+        puts "-----------"
+        current_node.connections.each do |node|
+          if !visited.include?(node)
             visited << node
             to_visit << { :node => node, :path => current[:path] << node.name}
             # puts current[:path]
